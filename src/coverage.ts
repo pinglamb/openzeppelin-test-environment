@@ -71,6 +71,12 @@ export async function runCoverage(skipFiles: string[], compileCommand: string, t
     // wait for the tests to finish
     await once(forked, 'close');
 
+    // Clean up before writing report
+    cleanUp();
+    exitHook(() => {
+      // do nothing.
+    });
+
     // write a report
     await api.report();
   } catch (e) {
